@@ -43,7 +43,7 @@ loader.load('./Objetos/Samba Dancing.fbx', object => {
         }
     });
     // Adicionar o objeto à cena
-    scene.add(object);
+    cube.add(object);
 
     // Ajustar a escala do objeto, dada a sua dimensão
     object.scale.x = 0.01;
@@ -129,14 +129,13 @@ document.addEventListener('keyup', ev => {
 // Desafio 2 - Cubo aleatório
 document.addEventListener('keypress', ev => {
     if (ev.key == ' ') {
-        var color = Math.random() * 0xffffff;
-        var material = new THREE.MeshStandardMaterial({ color: color });
-        var cube = new THREE.Mesh(geometry, material);
-        var x = THREE.MathUtils.randFloat(-15, 15);
-        var y = THREE.MathUtils.randFloat(-15, 15);
-        var z = THREE.MathUtils.randFloat(-15, 15);
-        cube.position.set(x, y, z);
-        scene.add(cube);
+        let material = new THREE.MeshStandardMaterial({ color:  Math.random() * 0xffffff });
+        let ncube = new THREE.Mesh(geometry, material);
+        let x = THREE.MathUtils.randFloat(-15, 15);
+        let y = THREE.MathUtils.randFloat(-15, 15);
+        let z = THREE.MathUtils.randFloat(-15, 15);
+        ncube.position.set(x, y, z);
+        scene.add(ncube);
     }
 });
 
@@ -145,7 +144,7 @@ function Start() {
 
     // Desafio 1 - Boneco de neve  
     var geometry = new THREE.SphereGeometry(10, 50, 50);
-    var material = new THREE.MeshStandardMaterial({ color: "white", });
+    var material = new THREE.MeshBasicMaterial({ color: "white", });
     var big_ball = new THREE.Mesh(geometry, material);
 
     geometry = new THREE.SphereGeometry(7, 50, 50);
@@ -153,7 +152,7 @@ function Start() {
     small_ball.position.y += 14;
 
     geometry = new THREE.SphereGeometry(2, 20, 20);
-    material = new THREE.MeshStandardMaterial({ color: "black" });
+    material = new THREE.MeshBasicMaterial({ color: "black" });
     var left_eye = new THREE.Mesh(geometry, material);
     left_eye.position.x -= 2;
     left_eye.position.y += 15;
@@ -165,7 +164,7 @@ function Start() {
     right_eye.position.z += 4.8;
 
     geometry = new THREE.RingGeometry(1, 2, 20, 20, Math.PI, Math.PI);
-    material = new THREE.MeshStandardMaterial({ color: 'red' });
+    material = new THREE.MeshBasicMaterial({ color: 'red' });
     var mouth = new THREE.Mesh(geometry, material);
     mouth.position.y += 13;
     mouth.position.z += 7;
