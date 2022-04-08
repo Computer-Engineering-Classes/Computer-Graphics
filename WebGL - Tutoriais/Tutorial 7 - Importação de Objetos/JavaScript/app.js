@@ -65,12 +65,12 @@ var material = new THREE.MeshStandardMaterial({ color: 'orange' });
 var cube = new THREE.Mesh(geometry, material);
 
 var cubeCoordRotation;
-// var cameraWalk = { x: 0, y: 0, z: 0 };
-// var cameraSpeed = 0.05;
-// Desafio 1
+var cameraWalk = { x: 0, y: 0, z: 0 };
+var cameraSpeed = 0.05;
+// Desafio 1 - Dançarino
 var dancerWalk = { x: 0, y: 0, z: 0 };
 var dancerSpeed = 0.1;
-// Desafio 2
+// Desafio 1 - Boneco de neve
 var snowman = new THREE.Group();
 
 document.addEventListener('mousemove', ev => {
@@ -126,30 +126,56 @@ document.addEventListener('keyup', ev => {
     dancerWalk = coords;
 });
 
+// Desafio 2 - Cubo aleatório
+document.addEventListener('keypress', ev => {
+    if (ev.key == ' ') {
+        var color = Math.random() * 0xffffff;
+        var material = new THREE.MeshStandardMaterial({ color: color });
+        var cube = new THREE.Mesh(geometry, material);
+        var x = THREE.MathUtils.randFloat(-15, 15);
+        var y = THREE.MathUtils.randFloat(-15, 15);
+        var z = THREE.MathUtils.randFloat(-15, 15);
+        cube.position.set(x, y, z);
+        scene.add(cube);
+    }
+});
 
 function Start() {
     scene.add(cube);
 
-    // Desafio 2 - Boneco de neve
+    // Desafio 1 - Boneco de neve  
     var geometry = new THREE.SphereGeometry(10, 50, 50);
-    var material = new THREE.MeshPhongMaterial({ color: "white", });
+    var material = new THREE.MeshStandardMaterial({ color: "white", });
     var big_ball = new THREE.Mesh(geometry, material);
-    snowman.add(big_ball);
 
     geometry = new THREE.SphereGeometry(7, 50, 50);
     var small_ball = new THREE.Mesh(geometry, material);
-    small_ball.position.y += 13;
-    snowman.add(small_ball);
+    small_ball.position.y += 14;
 
-    geometry = new THREE.RingGeometry(1.5, 4, 20, 20, Math.PI * 1.25,  Math.PI * 0.5);
-    material = new THREE.MeshPhongMaterial({ color: "red" });
+    geometry = new THREE.SphereGeometry(2, 20, 20);
+    material = new THREE.MeshStandardMaterial({ color: "black" });
+    var left_eye = new THREE.Mesh(geometry, material);
+    left_eye.position.x -= 2;
+    left_eye.position.y += 15;
+    left_eye.position.z += 4.8;
+
+    var right_eye = new THREE.Mesh(geometry, material);
+    right_eye.position.x += 2;
+    right_eye.position.y += 15;
+    right_eye.position.z += 4.8;
+
+    geometry = new THREE.RingGeometry(1, 2, 20, 20, Math.PI, Math.PI);
+    material = new THREE.MeshStandardMaterial({ color: 'red' });
     var mouth = new THREE.Mesh(geometry, material);
-    mouth.position.z += 6;
     mouth.position.y += 13;
-    snowman.add(mouth);
+    mouth.position.z += 7;
 
-    snowman.position.x -= 20;
-    snowman.position.z -= 50;
+    var head = new THREE.Group();
+    head.add(small_ball, left_eye, right_eye, mouth);
+    snowman.add(head, big_ball);
+
+    snowman.position.x -= 4;
+    snowman.scale.set(0.15, 0.15, 0.15);
     scene.add(snowman);
 
     // Criar foco de luz branca e intensidade normal
