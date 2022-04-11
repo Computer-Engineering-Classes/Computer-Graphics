@@ -142,33 +142,34 @@ document.addEventListener('keypress', ev => {
 function Start() {
     scene.add(cube);
 
-    // Desafio 1 - Boneco de neve  
+    // Desafio 1 - Boneco de neve
+    // Torso  
     var geometry = new THREE.SphereGeometry(10, 50, 50);
     var material = new THREE.MeshBasicMaterial({ color: "white", });
     var big_ball = new THREE.Mesh(geometry, material);
-
+    // Cabeça
     geometry = new THREE.SphereGeometry(7, 50, 50);
     var small_ball = new THREE.Mesh(geometry, material);
     small_ball.position.y += 14;
-
+    // Olho esquerdo
     geometry = new THREE.SphereGeometry(2, 20, 20);
     material = new THREE.MeshBasicMaterial({ color: "black" });
     var left_eye = new THREE.Mesh(geometry, material);
     left_eye.position.x -= 2;
     left_eye.position.y += 15;
     left_eye.position.z += 4.8;
-
+    // Olho direito
     var right_eye = new THREE.Mesh(geometry, material);
     right_eye.position.x += 2;
     right_eye.position.y += 15;
     right_eye.position.z += 4.8;
-
+    // boca
     geometry = new THREE.RingGeometry(1, 2, 20, 20, Math.PI, Math.PI);
     material = new THREE.MeshBasicMaterial({ color: 'red' });
     var mouth = new THREE.Mesh(geometry, material);
     mouth.position.y += 13;
     mouth.position.z += 7;
-
+    
     var head = new THREE.Group();
     head.add(small_ball, left_eye, right_eye, mouth);
     snowman.add(head, big_ball);
